@@ -40,7 +40,7 @@ class App extends Component {
 
   handleKeyPress = event => {
     if(event.key === 'Enter'){
-      const newMessage = {type:"incomingMessage", username: this.state.currentUser, content:(event.target.value)}
+      const newMessage = {type:"incomingMessage", username:this.state.currentUser, content:(event.target.value)}
       this.socket.send(JSON.stringify(newMessage))
       event.target.value = ''
     }
@@ -48,7 +48,11 @@ class App extends Component {
 
   handleNameChange = event => {
     if(event.key === 'Enter'){
-      this.setState({currentUser:(event.target.value)})
+      const oldUser = this.state.currentUser;
+      const newUser = event.target.value;
+      this.setState({currentUser:(newUser)});
+      const newNotif = {type:"incomingNotification", oldUser:oldUser, newUser: newUser}
+      this.socket.send(JSON.stringify(newNotif))
     }
   }
 

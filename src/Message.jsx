@@ -8,10 +8,10 @@ export default class Message extends Component {
         <span className="message-username">{this.props.message.username}</span>
         <span className="message-content">{this.props.message.content}</span>
       </div>
-    )} else if (this.props.message.type === "message system"){
+    )} else if (this.props.message.type === "incomingNotification"){
       return (
         <div className="message system">
-          Anonymous1 changed their name to nomnom.
+          {this.props.message.oldUser} changed their name to {this.props.message.newUser}.
         </div>
       )
     }
