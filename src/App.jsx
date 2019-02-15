@@ -8,6 +8,7 @@ class App extends Component {
   constructor(props){
     super(props);
     this.state = {
+      userCount: 0,
       currentUser: "Anonymous",
       messages: []
     }
@@ -18,12 +19,24 @@ class App extends Component {
     this.socket = new WebSocket(url);
     this.socket.onopen = event => {
       console.log("Connected to socket server");
+      // const users = JSON.parse(event)
 
     }
+
     this.socket.onmessage = message => {
       const serverMessage = JSON.parse(message.data);
-      this.setState({messages:[...this.state.messages, serverMessage]})
-
+      console.log(serverMessage);
+      switch (serverMessage.type) {
+        case ('incomingMessage'):
+        case ('incomingNotification'):
+          this.setState({messages:[...this.state.messages, serverMessage]})
+          break;
+        case ('userTotal'):
+          this.setState({userCount:serverMessage.userCount})
+          break;
+        default:
+          throw new Error("unknown event type " + serverMessage.type);
+      }
     }
 
 
@@ -62,6 +75,7 @@ class App extends Component {
       <div>
         <nav className="navbar">
           <a href="/" className="navbar-brand">Chatty</a>
+          <span>{this.state.userCount} users online</span>
         </nav>
         <MessageList messages={this.state.messages} />
         <ChatBar
