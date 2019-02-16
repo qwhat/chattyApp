@@ -42,7 +42,7 @@ class App extends Component {
   handleMessage = event => {
     if(event.key === "Enter"){
       const newMessage = {type:"incomingMessage", username:this.state.currentUser, content:(event.target.value)};
-
+      /* sends the new information to the WebSockets server */
       this.socket.send(JSON.stringify(newMessage));
       event.target.value = "";
     }
@@ -53,7 +53,7 @@ class App extends Component {
       const oldUser = this.state.currentUser;
       const newUser = event.target.value;
       const newNotif = {type:"incomingNotification", oldUser:oldUser, newUser: newUser};
-
+      /* sends the new information to the WebSockets server */
       this.setState({currentUser:(newUser)});
       this.socket.send(JSON.stringify(newNotif));
     }
