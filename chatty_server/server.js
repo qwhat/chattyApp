@@ -30,6 +30,7 @@ wss.on('connection', (ws) => {
     )
   })
 
+  /* executes when a user sends a message */
   ws.on('message', message => {
     const clientMessage = JSON.parse(message);
     wss.clients.forEach(function(client){
