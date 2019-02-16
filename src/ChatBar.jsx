@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 
-
+/* functional component that creates the chat bar */
 export function ChatBar(props){
     return (
       <footer className="chatbar">
