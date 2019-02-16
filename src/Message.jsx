@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 
+/* functional component that handles each message object passed to it from MessageList */
 export function Message(props) {
     if(props.message.type === "incomingMessage") {
       return (
